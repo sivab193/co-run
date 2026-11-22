@@ -25,11 +25,11 @@ Because the app includes a placeholder `app/google-services.json`, you will need
    ```
 3. Give it a nickname like `Run Together Android` and click **Register app**.
 4. Click **Download `google-services.json`**.
-5. Replace the placeholder file at:
+5. Save the downloaded file to:
    ```
    app/google-services.json
    ```
-   with the downloaded file.
+   *(See `app/google-services.json.example` for the expected structure. `app/google-services.json` is listed in `.gitignore` so your Firebase config won't be committed to GitHub.)*
    *(Make sure the downloaded `google-services.json` includes `"firebase_url"` inside `"project_info"`. If you created the Realtime Database after registering the Android app, re-download `google-services.json` so `"firebase_url"` is included.)*
 
 ## Step 4: Apply Room-Scoped Security Rules

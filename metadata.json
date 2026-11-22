@@ -1,6 +1,6 @@
 {
   "name": "Run Together",
-  "description": "Live two-runner accountability app with real-time speed, distance, OpenStreetMap routes, Firebase Realtime Database sync, and shareable dual-map run cards.",
+  "description": "Minimal Android running accountability app for two runners in different cities — live speed & distance, dual OpenStreetMap routes, Firebase Realtime Database sync, and shareable dual-map run cards.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
