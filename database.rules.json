@@ -1,0 +1,34 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "rooms": {
+      ".read": false,
+      ".write": false,
+      "$roomCode": {
+        ".read": "$roomCode.matches(/^[A-Z2-9]{6}$/)",
+        ".write": "$roomCode.matches(/^[A-Z2-9]{6}$/)",
+        "meta": {
+          ".validate": "newData.hasChildren(['roomCode', 'createdAt', 'maxRunners']) && newData.child('roomCode').val() === $roomCode && newData.child('maxRunners').isNumber() && newData.child('maxRunners').val() >= 2 && newData.child('maxRunners').val() <= 10"
+        },
+        "runners": {
+          "$runnerId": {
+            ".validate": "newData.hasChildren(['runnerId', 'displayName', 'status']) && newData.child('runnerId').val() === $runnerId && newData.child('displayName').isString() && newData.child('displayName').val().length > 0 && newData.child('displayName').val().length <= 40 && newData.child('status').val().matches(/^(READY|RUNNING|PAUSED|FINISHED)$/)"
+          }
+        },
+        "paths": {
+          "$runnerId": {
+            "$pointId": {
+              ".validate": "newData.hasChildren(['lat', 'lng', 't']) && newData.child('lat').isNumber() && newData.child('lng').isNumber() && newData.child('t').isNumber()"
+            }
+          }
+        },
+        "history": {
+          "$runId": {
+            ".validate": "newData.hasChildren(['runId', 'roomCode', 'createdAt']) && newData.child('roomCode').val() === $roomCode"
+          }
+        }
+      }
+    }
+  }
+}

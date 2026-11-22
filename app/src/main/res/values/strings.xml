@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Run Together</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">Run Together</string>
+    <string name="onboarding_subtitle">Live accountability for two runners, wherever you are.</string>
+    <string name="onboarding_name_label">Your display name</string>
+    <string name="onboarding_name_placeholder">e.g. Sivaganesh</string>
+    <string name="onboarding_continue">Continue</string>
+
+    <!-- Home -->
+    <string name="home_create_room">Create room</string>
+    <string name="home_join_room">Join room</string>
+    <string name="home_join_dialog_title">Join a room</string>
+    <string name="home_join_code_label">6-character room code</string>
+    <string name="home_join_code_placeholder">K7M4P9</string>
+    <string name="home_join_confirm">Join</string>
+    <string name="home_cancel">Cancel</string>
+    <string name="home_history">Run history</string>
+    <string name="home_settings">Settings</string>
+    <string name="home_firebase_banner_title">Firebase Realtime Database not connected</string>
+    <string name="home_firebase_banner_body">Using local mode. Add your google-services.json to enable live two-phone sync.</string>
+    <string name="home_firebase_setup_button">Setup guide</string>
+
+    <!-- Live Run -->
+    <string name="live_room_code_prefix">ROOM</string>
+    <string name="live_share_code">Share code</string>
+    <string name="live_start_my_run">Start run</string>
+    <string name="live_start_together">Start together (3-2-1)</string>
+    <string name="live_pause">Pause</string>
+    <string name="live_resume">Resume</string>
+    <string name="live_end_run">End run</string>
+    <string name="live_end_confirm_title">Finish your run?</string>
+    <string name="live_end_confirm_body">Your run will end and generate your shareable run card. Your partner can keep running.</string>
+    <string name="live_waiting_partner">Waiting for partner to join…</string>
+    <string name="live_waiting_gps">Waiting for GPS</string>
+    <string name="live_status_ready">READY</string>
+    <string name="live_status_running">LIVE</string>
+    <string name="live_status_paused">PAUSED</string>
+    <string name="live_status_finished">FINISHED</string>
+    <string name="live_label_speed">SPEED</string>
+    <string name="live_label_distance">DISTANCE</string>
+    <string name="live_map_focus_me">Me</string>
+    <string name="live_map_focus_partner">Partner</string>
+    <string name="live_map_focus_both">Both</string>
+
+    <!-- Permissions -->
+    <string name="perm_location_title">Location permission required</string>
+    <string name="perm_location_rationale">Run Together needs high-accuracy GPS location to measure your live speed, distance, and route map while running.</string>
+    <string name="perm_bg_location_title">Keep tracking with screen off</string>
+    <string name="perm_bg_location_rationale">Allowing \"All the time\" location lets Run Together keep recording GPS reliably when your screen locks in your pocket. You can also keep \"While using the app\" — the active run notification keeps tracking while a run is started in the foreground.</string>
+    <string name="perm_grant">Allow</string>
+    <string name="perm_skip_bg">Keep while using app</string>
+
+    <!-- Summary & Share -->
+    <string name="summary_title">Run Summary</string>
+    <string name="summary_share">Share run card</string>
+    <string name="summary_save_gallery">Save to gallery</string>
+    <string name="summary_saved_gallery">Saved to gallery</string>
+    <string name="summary_back_home">Done</string>
+    <string name="summary_generating">Rendering dual-map card…</string>
+
+    <!-- History -->
+    <string name="history_title">Run History</string>
+    <string name="history_empty_title">No finished runs yet</string>
+    <string name="history_empty_body">Finish a run in any room to save both routes and your shareable card here.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_display_name">Display name</string>
+    <string name="settings_units">Units</string>
+    <string name="settings_units_km">Kilometers (km, km/h, min/km)</string>
+    <string name="settings_units_mi">Miles (mi, mph, min/mi)</string>
+    <string name="settings_units_note">Applies on this phone only. Both runners\' numbers are shown in your selected unit.</string>
+    <string name="settings_firebase_status">Firebase Realtime Database</string>
+    <string name="settings_save">Save</string>
+
+    <!-- Foreground service notification -->
+    <string name="notif_channel_name">Active Run Tracking</string>
+    <string name="notif_channel_desc">Keeps GPS tracking active while your screen is off during a run.</string>
+    <string name="notif_title">Run Together — Tracking live</string>
+</resources>
