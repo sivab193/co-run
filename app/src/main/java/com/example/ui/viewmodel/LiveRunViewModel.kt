@@ -261,9 +261,9 @@ class LiveRunViewModel(application: Application) : AndroidViewModel(application)
                 }
             }
 
-            // Use roomCode as stable run ID for this session so when the second runner finishes,
-            // both runners' final routes & stats merge into the same room history entry.
-            val runId = "run_${snapshot.roomCode}"
+            // Keep every completed run distinct. Concurrent runners still appear together
+            // in the current summary, while a later room run gets its own history entry.
+            val runId = "run_${snapshot.roomCode}_${System.currentTimeMillis()}"
             val entry = RunHistoryEntry(
                 runId = runId,
                 roomCode = snapshot.roomCode,

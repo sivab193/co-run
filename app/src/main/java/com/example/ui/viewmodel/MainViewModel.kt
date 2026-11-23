@@ -140,12 +140,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun refreshHistory() {
+        if (_isLoadingHistory.value) return
         viewModelScope.launch {
             _isLoadingHistory.value = true
-            val knownCodes = prefs.userProfile.first().knownRoomCodes
-            val loaded = syncRepo.fetchHistoryForRooms(knownCodes)
-            _history.value = loaded
-            _isLoadingHistory.value = false
+            try {
+                val knownCodes = prefs.userProfile.first().knownRoomCodes
+                val loaded = syncRepo.fetchHistoryForRooms(knownCodes)
+                _history.value = loaded
+            } finally {
+                _isLoadingHistory.value = false
+            }
         }
     }
 }

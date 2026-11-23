@@ -18,6 +18,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withTimeout
 
 class FirebaseRoomSyncRepository(
     context: Context,
@@ -115,8 +116,33 @@ class FirebaseRoomSyncRepository(
             roomRef(roomCode).child(NODE_RUNNERS).child(runnerId).setValue(runner.toMap()).await()
         } else {
             roomRef(roomCode).child(NODE_RUNNERS).child(runnerId)
-                .updateChildren(mapOf("displayName" to displayName, "lastUpdatedAt" to now))
+                .get()
                 .await()
+                .let { runnerSnapshot ->
+                    val status = RunnerStatus.fromWire(
+                        runnerSnapshot.child("status").getValue(String::class.java)
+                    )
+                    val updates = mutableMapOf<String, Any>(
+                        "displayName" to displayName,
+                        "lastUpdatedAt" to now
+                    )
+                    if (status == RunnerStatus.FINISHED) {
+                        updates["status"] = RunnerStatus.READY.name
+                        updates["startedAt"] = 0L
+                        updates["finishedAt"] = 0L
+                        updates["lat"] = 0.0
+                        updates["lng"] = 0.0
+                        updates["speedMps"] = 0.0
+                        updates["topSpeedMps"] = 0.0
+                        updates["distanceMeters"] = 0.0
+                        updates["elapsedMs"] = 0L
+                        updates["gpsLocked"] = false
+                        roomRef(roomCode).child(NODE_PATHS).child(runnerId).removeValue().await()
+                    }
+                    roomRef(roomCode).child(NODE_RUNNERS).child(runnerId)
+                        .updateChildren(updates)
+                        .await()
+                }
         }
         meta
     }
@@ -330,7 +356,9 @@ class FirebaseRoomSyncRepository(
         }
         for (code in roomCodes) {
             try {
-                val snapshot = roomRef(code).child(NODE_HISTORY).get().await()
+                val snapshot = withTimeout(5_000) {
+                    roomRef(code).child(NODE_HISTORY).get().await()
+                }
                 for (runNode in snapshot.children) {
                     val parsed = runNode.toRunHistoryEntry(code) ?: continue
                     val existing = merged[parsed.runId]

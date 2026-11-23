@@ -731,6 +731,25 @@ private fun RunnerMetricsCard(
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "TIME",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = InkSecondary
+                )
+                Text(
+                    text = UnitFormatter.durationFormatted(runner?.elapsedMs ?: 0L),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = if (isPaused) InkSecondary else InkWhite,
+                    fontFamily = JetBrainsMonoFamily
+                )
+            }
         }
     }
 }

@@ -62,6 +62,28 @@ class LocalRoomSyncRepository(
     ): Result<RoomMeta> {
         val existing = roomsFlow.value[roomCode]
         if (existing != null) {
+            val runner = existing.runners[runnerId]
+            if (runner?.status == RunnerStatus.FINISHED) {
+                val resetRunner = runner.copy(
+                    startedAt = 0L,
+                    finishedAt = 0L,
+                    status = RunnerStatus.READY,
+                    lat = 0.0,
+                    lng = 0.0,
+                    speedMps = 0.0,
+                    topSpeedMps = 0.0,
+                    distanceMeters = 0.0,
+                    elapsedMs = 0L,
+                    gpsLocked = false,
+                    lastUpdatedAt = System.currentTimeMillis()
+                )
+                roomsFlow.update { current ->
+                    current + (roomCode to existing.copy(
+                        runners = existing.runners + (runnerId to resetRunner),
+                        paths = existing.paths + (runnerId to emptyList())
+                    ))
+                }
+            }
             return Result.success(existing.meta)
         }
         // In local-only mode without Firebase, open the room locally so UI remains testable.

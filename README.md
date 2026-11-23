@@ -8,7 +8,7 @@ A minimal, dark-first Android running accountability app built for two runners r
 
 - **Code-Based Rooms (No Accounts):** Pick a display name on first launch, create a room to get a 6-character code & deep link (`runtogether://join/<CODE>`), and share it via WhatsApp/SMS.
 - **Flexible Start + Optional 3-2-1 Sync:** Start running immediately even before your partner joins, or tap **Start together (3-2-1)** when both runners are ready for a server-synced countdown.
-- **Glanceable Live Screen:** Huge tabular **speed** and **distance** readouts for both runners (orange for you, sky-blue for your partner), clear **PAUSED** states, **"Waiting for GPS"** detection, and per-runner **Pause / Resume / End** controls.
+- **Glanceable Live Screen:** Huge tabular **speed** and **distance** readouts plus a live elapsed **time** for both runners (orange for you, sky-blue for your partner), clear **PAUSED** states, **"Waiting for GPS"** detection, and per-runner **Pause / Resume / End** controls.
 - **Live Dual-Route Map:** Dark-styled **OpenStreetMap (`osmdroid`)** directly under the metrics drawing both runners' live polylines with one-tap **Me / Partner / Both** camera focus chips.
 - **Screen-Off GPS Tracking:** High-accuracy `FusedLocationProviderClient` inside an Android `location` foreground service with rolling time-window speed smoothing (`SpeedSmoother`).
 - **Dual-Map Share Card & History:** Renders a `1080 × 1350` PNG card via Android Canvas with two side-by-side OpenStreetMap route panels (fitted to each runner's city) plus distance, time, avg pace, and top speed. Auto-saves to the gallery and shares to WhatsApp/Instagram.
@@ -30,6 +30,8 @@ A minimal, dark-first Android running accountability app built for two runners r
 
 `app/google-services.json` is intentionally gitignored so you never commit your Firebase config to a public repository. A template is provided at `app/google-services.json.example`.
 
+The app supports one or two runners in the same room. A finished runner can start a later run while the room remains active. Each completed run is stored as a separate history entry.
+
 ### 1. Clone the repository
 ```bash
 git clone <your-repo-url>
@@ -47,7 +49,7 @@ cd run-together
    ```
    app/google-services.json
    ```
-   *(Verify `"firebase_url"` is present under `"project_info"`. See `app/google-services.json.example` for the expected shape.)*
+   *(Verify `"firebase_url"` is present under `"project_info"`. The app also derives the database URL from the project ID as a fallback, but the downloaded config is the preferred source.)*
 5. Open **Realtime Database → Rules**, paste the contents of **`database.rules.json`** from the repo root, and click **Publish**.
 
 For detailed instructions, see [`FIREBASE_SETUP.md`](FIREBASE_SETUP.md).
